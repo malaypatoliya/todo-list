@@ -43,7 +43,7 @@ const TodoList = () => {
         },
         onSubmit: (values, { resetForm }) => {
             setTodos([...todos, values.newTodo]);
-            resetForm();
+            formik.resetForm();
         },
         validate: (values) => {
             const errors = {};
@@ -136,8 +136,8 @@ const TodoList = () => {
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
                 <DialogTitle>Edit Todo</DialogTitle>
-                <DialogContent>
-                    <form onSubmit={formikEdit.handleSubmit}>
+                <form onSubmit={formikEdit.handleSubmit}>
+                    <DialogContent>
                         <TextField
                             label="Edit Todo"
                             name="editTodo"
@@ -148,20 +148,20 @@ const TodoList = () => {
                             variant="outlined"
                         />
                         {
-                            formik.errors.editTodo && formik.touched.editTodo && (
-                                <div style={{ color: "red", marginBottom: '15px' }}>{formik.errors.editTodo}</div>
+                            formikEdit.errors.editTodo && formikEdit.touched.editTodo && (
+                                <div style={{ color: "red", marginBottom: '15px' }}>{formikEdit.errors.editTodo}</div>
                             )
                         }
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setDialogOpen(false)} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={formikEdit.handleSubmit} color="primary">
-                        Save
-                    </Button>
-                </DialogActions>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setDialogOpen(false)} color="primary">
+                            Cancel
+                        </Button>
+                        <Button type="submit" color="primary">
+                            Save
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </>
     );
